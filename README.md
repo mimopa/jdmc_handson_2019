@@ -7,8 +7,8 @@ AWS Lambdaを使用して列車情報、気象情報をオープンデータAPI�
 ## 大まかな流れ
 事前準備  
 　東京公共交通オープンデータのアカウント登録  
-　※APIアクセスに必要なコンシューマキーの取得が必要
-　　https://developer-tokyochallenge.odpt.org/users/sign_up
+　※APIアクセスに必要なコンシューマキーの取得が必要  
+https://developer-tokyochallenge.odpt.org/users/sign_up
 
 ### 1. AWSアカウントの確認とコンソールへのログイン
 https://console.aws.amazon.com/console/home?nc2=h_ct&src=header-signin

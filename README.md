@@ -10,10 +10,10 @@ AWS Lambdaを使用して列車情報、気象情報をオープンデータAPI�
 　※APIアクセスに必要なコンシューマキーの取得が必要
 　　https://developer-tokyochallenge.odpt.org/users/sign_up
 
-1. AWSアカウントの確認とコンソールへのログイン
+### 1. AWSアカウントの確認とコンソールへのログイン
 https://console.aws.amazon.com/console/home?nc2=h_ct&src=header-signin
 
-2. IAMロールの作成
+### 2. IAMロールの作成
 　→Lambda、DynamoDB、S3、Glueそれぞれについてのアクセスポリシーをアタッチしたロールを作成
 　※セキュリティは考慮しないので、ユーザーは作成せず、AWSアカウントに基本FullAccessを付けていく
 ロール名：role-jdmchandson
@@ -24,7 +24,7 @@ AmazonS3FullAccess
 AWSGlueServiceRole
 ※以降のGlueの設定時に既存ロールを選すると、DynamoDBテーブルへのクロール用ポリシーが追加される？
 
-3. 列車情報取得用Lambdaファンクションの作成
+### 3. 列車情報取得用Lambdaファンクションの作成
 * GitHubからダウンロード
 https://github.com/mimopa/traindata-to-dynamodb.git
 * 展開されたフォルダの中身をzipファイルに圧縮
@@ -40,19 +40,19 @@ $ zip -r traindata-to-dynamodb.zip *
   clone式で5分ごと：0/5 * * * ? *
   ターゲット関数：traindata-to-dynamodb
 
-5. 気象情報取得用Lamnbaファンクションの作成
+### 5. 気象情報取得用Lamnbaファンクションの作成
 * Githubからダウンロード
 https://github.com/mimopa/otenki_scraping_to_dynamodb.git
 ※「headless-chromium」が100mbほどあるので、GitHubｈには上げられない。。。
 * GoogleドライブからLambda関数用のzipファイルをダウンロードする
   https://drive.google.com/drive/folders/1UwgFXE45J0GTd4qrogzG5ZD4iJzdXOED?usp=sharing
 
-6. CloudWatchイベントの作成
+### 6. CloudWatchイベントの作成
 　→1時間間隔での実行
   clone式で１時間ごと：0 0/1 * * ? *
   ターゲット関数：otenki_scraping_to_dynamodb
 
-7. AWSGlueのクローラ作成
+### 7. AWSGlueのクローラ作成
 ※参考
 https://aws.amazon.com/jp/blogs/news/simplify-amazon-dynamodb-data-extraction-and-analysis-by-using-aws-glue-and-amazon-athena/
 * データカタログ、データ格納用のS3バケットを作成
@@ -83,7 +83,7 @@ https://aws.amazon.com/jp/blogs/news/simplify-amazon-dynamodb-data-extraction-an
   データベース：traindata_for_S3
 * データカタログに登録されたメタデータテーブルに対してAthenaでSQLを発行してデータを確認
   ※Glueコンソールのテーブルから確認可能　→　データカタログ用のテーブルは確認メニューがグレーアウトされている。
-8. 外部からの接続
+### 8. 外部からの接続
 Athenaで参照可能となったデータカタログを、JDBCで外部から接続、クエリの実行を可能とする。
 ※必要なJDBCドライバをダウンロードし、ハンズオン用資材として保存しておく。
   ドライバ：

@@ -49,6 +49,7 @@ https://github.com/mimopa/otenki_scraping_to_dynamodb.git
 
 ### 6. CloudWatchイベントの作成
 →1時間間隔での実行  
+* CloudWatchコンソールからルールの作成  
   clone式で１時間ごと：0 0/1 * * ? *  
   ターゲット関数：otenki_scraping_to_dynamodb
 

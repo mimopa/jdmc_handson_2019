@@ -34,7 +34,7 @@ $ zip -r traindata-to-dynamodb.zip *
 * Lambdaの環境変数に東京公共交通オープンデータのアクセスキーを設定する  
 環境変数：「CONSHUMER_KEY」に設定
 
-4. CloudWatchイベントの作成  
+### 4. CloudWatchイベントの作成  
 →5分間隔での実行
 * CloudWatchコンソールからルールの作成  
   clone式で5分ごと：0/5 * * * ? *  

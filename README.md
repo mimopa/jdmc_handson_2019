@@ -32,7 +32,9 @@ https://github.com/mimopa/traindata-to-dynamodb.git
 $ zip -r traindata-to-dynamodb.zip *
 * Lambdaコンソールからzipファイルをアップロード
 * Lambdaの環境変数に東京公共交通オープンデータのアクセスキーを設定する  
-環境変数：「CONSHUMER_KEY」に設定
+環境変数：「CONSHUMER_KEY」に設定  
+* 一応、GoogleドライブにLambda関数用のzipファイルを用意「traindata-to-dynamodb.zip」しているので、これをダウンロードでもよい。  
+  https://drive.google.com/drive/folders/1UwgFXE45J0GTd4qrogzG5ZD4iJzdXOED?usp=sharing
 
 ### 4. CloudWatchイベントの作成  
 →5分間隔での実行
@@ -41,10 +43,10 @@ $ zip -r traindata-to-dynamodb.zip *
   ターゲット関数：traindata-to-dynamodb
 
 ### 5. 気象情報取得用Lamnbaファンクションの作成
-* Githubからダウンロード
+* Githubからダウンロード  
 https://github.com/mimopa/otenki_scraping_to_dynamodb.git  
 ※「headless-chromium」が100mbほどあるので、GitHubｈには上げられない。。。  
-* GoogleドライブからLambda関数用のzipファイルをダウンロードする
+* GoogleドライブからLambda関数用のzipファイル「deploy_package.zip」をダウンロードする
   https://drive.google.com/drive/folders/1UwgFXE45J0GTd4qrogzG5ZD4iJzdXOED?usp=sharing
 
 ### 6. CloudWatchイベントの作成

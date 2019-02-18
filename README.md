@@ -40,8 +40,8 @@ AWSGlueServiceRole
 ### 4. 列車情報取得用Lambdaファンクションの作成
 * Lambdaの作成
 名称：任意  
-ランタイム：Python 3.6  
-ハンドラ：lambda_function.lambda_handler  
+ランタイム：Nodo.js 8.10  
+ハンドラ：index.handler    
 * GitHubからダウンロード
 https://github.com/mimopa/traindata-to-dynamodb.git
 * 展開されたフォルダの中身をzipファイルに圧縮  
@@ -62,8 +62,8 @@ $ zip -r traindata-to-dynamodb.zip *
 ### 6. 気象情報取得用Lamnbaファンクションの作成  
 * Lambdaの作成
 名称：任意  
-ランタイム：Nodo.js 8.10  
-ハンドラ：index.handler  lambda_function.lambda_handler  
+ランタイム：Python 3.6  
+ハンドラ：lambda_function.lambda_handler  
 * Githubからダウンロード  
 https://github.com/mimopa/otenki_scraping_to_dynamodb.git  
 ※「headless-chromium」が100mbほどあるので、GitHubｈには上げられない。。。  

@@ -41,7 +41,8 @@ AWSGlueServiceRole
 * Lambdaの作成
 名称：任意  
 ランタイム：Nodo.js 8.10  
-ハンドラ：index.handler    
+ハンドラ：index.handler  
+タイムアウト：3分  
 * GitHubからダウンロード
 https://github.com/mimopa/traindata-to-dynamodb.git
 * 展開されたフォルダの中身をzipファイルに圧縮  
@@ -64,6 +65,8 @@ $ zip -r traindata-to-dynamodb.zip *
 名称：任意  
 ランタイム：Python 3.6  
 ハンドラ：lambda_function.lambda_handler  
+メモリ：1024MB
+タイムアウト：15分  
 * Githubからダウンロード  
 https://github.com/mimopa/otenki_scraping_to_dynamodb.git  
 ※「headless-chromium」が100mbほどあるので、GitHubｈには上げられない。。。  

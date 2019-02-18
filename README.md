@@ -24,7 +24,20 @@ AmazonS3FullAccess
 AWSGlueServiceRole  
 ※以降のGlueの設定時に既存ロールを選すると、DynamoDBテーブルへのクロール用ポリシーが追加される
 
-### 3. 列車情報取得用Lambdaファンクションの作成
+### 3. 列車情報、気象情報を格納するDynamoDBテーブルの作成  
+* 列車情報テーブルの作成  
+テーブル名：train  
+プライマリパーティションキー：id (文字列)  
+* 気象情報テーブルの作成  
+テーブル名：weather  
+プライマリパーティションキー：id (数値)  
+* 気象情報のシーケンシャル番号を保持するテーブルの作成  
+テーブル名：sequence  
+プライマリパーティションキー：tablename (文字列)  
+項目：seq  
+設定値：tablename「weather」,seq「0」  
+
+### 4. 列車情報取得用Lambdaファンクションの作成
 * GitHubからダウンロード
 https://github.com/mimopa/traindata-to-dynamodb.git
 * 展開されたフォルダの中身をzipファイルに圧縮  
@@ -36,26 +49,26 @@ $ zip -r traindata-to-dynamodb.zip *
 * 一応、GoogleドライブにLambda関数用のzipファイルを用意「traindata-to-dynamodb.zip」しているので、これをダウンロードでもよい。  
   https://drive.google.com/drive/folders/1UwgFXE45J0GTd4qrogzG5ZD4iJzdXOED?usp=sharing
 
-### 4. CloudWatchイベントの作成  
+### 5. CloudWatchイベントの作成  
 →5分間隔での実行
 * CloudWatchコンソールからルールの作成  
   clone式で5分ごと：0/5 * * * ? *  
   ターゲット関数：traindata-to-dynamodb
 
-### 5. 気象情報取得用Lamnbaファンクションの作成
+### 6. 気象情報取得用Lamnbaファンクションの作成
 * Githubからダウンロード  
 https://github.com/mimopa/otenki_scraping_to_dynamodb.git  
 ※「headless-chromium」が100mbほどあるので、GitHubｈには上げられない。。。  
 * GoogleドライブからLambda関数用のzipファイル「deploy_package.zip」をダウンロードする
   https://drive.google.com/drive/folders/1UwgFXE45J0GTd4qrogzG5ZD4iJzdXOED?usp=sharing
 
-### 6. CloudWatchイベントの作成
+### 7. CloudWatchイベントの作成
 →1時間間隔での実行  
 * CloudWatchコンソールからルールの作成  
   clone式で１時間ごと：0 0/1 * * ? *  
   ターゲット関数：otenki_scraping_to_dynamodb
 
-### 7. AWSGlueのクローラ作成
+### 8. AWSGlueのクローラ作成
 ※参考
 https://aws.amazon.com/jp/blogs/news/simplify-amazon-dynamodb-data-extraction-and-analysis-by-using-aws-glue-and-amazon-athena/
 * データカタログ、データ格納用のS3バケットを作成  
@@ -88,7 +101,7 @@ https://aws.amazon.com/jp/blogs/news/simplify-amazon-dynamodb-data-extraction-an
 * データカタログに登録されたメタデータテーブルに対してAthenaでSQLを発行してデータを確認  
 ※Glueコンソールのテーブルから確認可能  
 →データカタログ用のテーブルは確認メニューがグレーアウトされている。  
-### 8. 外部からの接続  
+### 9. 外部からの接続  
 Athenaで参照可能となったデータカタログを、JDBCで外部から接続、クエリの実行を可能とする。  
 ※必要なJDBCドライバをダウンロードし、ハンズオン用資材として保存しておく。  
   ドライバ：  

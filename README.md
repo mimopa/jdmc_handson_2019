@@ -57,7 +57,7 @@ $ zip -r traindata-to-dynamodb.zip *
 ### 5. CloudWatchイベントの作成  
 →5分間隔での実行
 * CloudWatchコンソールからルールの作成  
-  clone式で5分ごと：0/5 * * * ? *  
+  clone式で5分ごと：cron(0/5 * * * ? *)   
   ターゲット関数：traindata-to-dynamodb
 
 ### 6. 気象情報取得用Lamnbaファンクションの作成  

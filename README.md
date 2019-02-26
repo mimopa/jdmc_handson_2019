@@ -84,8 +84,9 @@ https://github.com/mimopa/otenki_scraping_to_dynamodb.git
 ### 8. AWSGlueのクローラ作成
 ※参考
 https://aws.amazon.com/jp/blogs/news/simplify-amazon-dynamodb-data-extraction-and-analysis-by-using-aws-glue-and-amazon-athena/
+* 列車情報  
 * データカタログ、データ格納用のS3バケットを作成  
-  バケット名：publictransportdata  
+  バケット名：publictransportdata/train  
   アクセス権限：パブリック  
 * DynamoDBからスキーマを検出し、AWS Glue Data Catalogにメタデータを設定するクローラを作成  
   クローラー名：traindata_for_dynamodb  
@@ -114,6 +115,34 @@ https://aws.amazon.com/jp/blogs/news/simplify-amazon-dynamodb-data-extraction-an
   インクルードパス：s3://publictransportdata/train  
   出力を設定では、データベースを追加  
   データベース：traindata_for_S3  
+* ＜気象情報＞  
+* データカタログ、データ格納用のS3バケットを作成  
+  バケット名：publictransportdata/weather  
+  アクセス権限：パブリック  
+* DynamoDBからスキーマを検出し、AWS Glue Data Catalogにメタデータを設定するクローラを作成  
+  クローラー名：weatherdata_for_dynamodb  
+  データストア：DnynamoDB  
+  テーブル名：weather  
+  サービスロール：AWSGlueServiceRole-XXX ←trainで作ったものを選択  
+  クローラーの出力先データベース：weather_catalog  
+  頻度：オンデマンドで実行 ※ハンズオンでは手動実行  
+* DynamoDBテーブルからデータを抽出し、S3に格納するETLジョブを作成  
+  ジョブの名前：weather_for_dynamodb  
+  IAMロール：AWSGlueServiceRole-XXX  
+  Type：Spark  
+  データソース：weather_catalog  
+  データターゲットでテーブルを作成する  
+  データストア：AmazonS3  
+  形式：JSON  
+  ターゲットパス：s3://publictransportdata/weather  
+* S3のスキーマを検出し、AWS Glue Data Catalogにメタデータを設定するクローラを作成  
+  クローラ名：weatherdata_for_S3  
+  データストア：S3  
+  クロールするデータの場所：指定されたパス  
+  インクルードパス：s3://publictransportdata/weather  
+  出力を設定では、データベースを追加  
+  データベース：weatherdata_for_S3  
+
 * データカタログに登録されたメタデータテーブルに対してAthenaでSQLを発行してデータを確認  
 ※Glueコンソールのテーブルから確認可能  
 →データカタログ用のテーブルは確認メニューがグレーアウトされている。  

@@ -1,8 +1,8 @@
 # ETLハンズオン準備（リハ用）
 
 ## 概要
-AWS Lambdaを使用して列車情報、気象情報をオープンデータAPIより取得し、DynamoDBへデータを格納します。
-格納されたデータに対して、AWS Glueを使用してDynamoDBテーブルをクロールし、Amazon S3にデータを抽出し、Amazon AthenaでSQLクエリを使用して分析を実行する体験をします。
+AWS Lambdaを使用して列車情報、気象情報をオープンデータAPIより取得し、DynamoDBへデータを格納します。  
+格納されたデータに対して、AWS Glueを使用してDynamoDBテーブルをクロールし、Amazon S3にデータを抽出し、Amazon AthenaでSQLクエリを使用して分析を実行する体験をします。  
 
 ## 大まかな流れ
 事前準備  
@@ -12,6 +12,8 @@ https://developer-tokyochallenge.odpt.org/users/sign_up
 
 ### 1. AWSアカウントの確認とコンソールへのログイン
 https://console.aws.amazon.com/console/home?nc2=h_ct&src=header-signin
+
+※無料枠についての説明を入れる
 
 ### 2. IAMロールの作成
 　→Lambda、DynamoDB、S3、Glueそれぞれについてのアクセスポリシーをアタッチしたロールを作成  
@@ -57,8 +59,8 @@ $ zip -r traindata-to-dynamodb.zip *
 ### 5. CloudWatchイベントの作成  
 →5分間隔での実行
 * CloudWatchコンソールからルールの作成  
-  clone式で5分ごと：cron(0/5 * * * ? *)   
-  ターゲット関数：traindata-to-dynamodb
+  clone式で5分ごと：cron(0/5 * * * ? *)*   
+  ターゲット関数：traindata-to-dynamodb  
 
 ### 6. 気象情報取得用Lamnbaファンクションの作成  
 * Lambdaの作成
@@ -88,10 +90,13 @@ https://aws.amazon.com/jp/blogs/news/simplify-amazon-dynamodb-data-extraction-an
 * DynamoDBからスキーマを検出し、AWS Glue Data Catalogにメタデータを設定するクローラを作成  
   クローラー名：traindata_for_dynamodb  
   データストア：DnynamoDB  
-  テーブル名：train_catalog  
-  IAMロール：role-jdmchandson  
-  ※既存のIAMロールを選択すると、DynamoDBをクロールするポリシーが追加される  
+  テーブル名：train  
+  サービスロール：AWSGlueServiceRole-XXX  
+  クローラーの出力先データベース：train_catalog
+  <!-- IAMロール：role-jdmchandson   -->
+  <!-- ※既存のIAMロールを選択すると、DynamoDBをクロールするポリシーが追加される   -->
   →AWSGlueServiceRole-default  
+  どうやらGlue用のロールを作成する必要がありそう！
   頻度：オンデマンドで実行 ※ハンズオンでは手動実行  
 * DynamoDBテーブルからデータを抽出し、S3に格納するETLジョブを作成  
   ジョブの名前：train_for_dynamodb  
@@ -112,6 +117,7 @@ https://aws.amazon.com/jp/blogs/news/simplify-amazon-dynamodb-data-extraction-an
 * データカタログに登録されたメタデータテーブルに対してAthenaでSQLを発行してデータを確認  
 ※Glueコンソールのテーブルから確認可能  
 →データカタログ用のテーブルは確認メニューがグレーアウトされている。  
+
 ### 9. 外部からの接続  
 Athenaで参照可能となったデータカタログを、JDBCで外部から接続、クエリの実行を可能とする。  
 ※必要なJDBCドライバをダウンロードし、ハンズオン用資材として保存しておく。  

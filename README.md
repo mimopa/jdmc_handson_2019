@@ -93,12 +93,14 @@ https://aws.amazon.com/jp/blogs/news/simplify-amazon-dynamodb-data-extraction-an
   データストア：DnynamoDB  
   テーブル名：train  
   サービスロール：AWSGlueServiceRole-XXX  
+  ※サービスロールには、DynamoDBFullAccessが必要かもしれない。
   クローラーの出力先データベース：train_catalog  
   <!-- IAMロール：role-jdmchandson   -->
   <!-- ※既存のIAMロールを選択すると、DynamoDBをクロールするポリシーが追加される   -->
   →AWSGlueServiceRole-default  
   どうやらGlue用のロールを作成する必要がありそう！
-  頻度：オンデマンドで実行 ※ハンズオンでは手動実行  
+  頻度：オンデマンドで実行 ※ハンズオンでは手動実行
+* クローラーを実行し、「train」テーブルに項目が表示されていることを確認する。  
 * DynamoDBテーブルからデータを抽出し、S3に格納するETLジョブを作成  
   ジョブの名前：train_for_dynamodb  
   IAMロール：AWSGlueServiceRole-default  
@@ -126,6 +128,7 @@ https://aws.amazon.com/jp/blogs/news/simplify-amazon-dynamodb-data-extraction-an
   サービスロール：AWSGlueServiceRole-XXX ←trainで作ったものを選択  
   クローラーの出力先データベース：weather_catalog  
   頻度：オンデマンドで実行 ※ハンズオンでは手動実行  
+* クローラーを実行し、「weather」テーブルに項目が表示されていることを確認する。  
 * DynamoDBテーブルからデータを抽出し、S3に格納するETLジョブを作成  
   ジョブの名前：weather_for_dynamodb  
   IAMロール：AWSGlueServiceRole-XXX  

@@ -92,7 +92,7 @@ https://aws.amazon.com/jp/blogs/news/simplify-amazon-dynamodb-data-extraction-an
   データストア：DnynamoDB  
   テーブル名：train  
   サービスロール：AWSGlueServiceRole-XXX  
-  クローラーの出力先データベース：train_catalog
+  クローラーの出力先データベース：train_catalog  
   <!-- IAMロール：role-jdmchandson   -->
   <!-- ※既存のIAMロールを選択すると、DynamoDBをクロールするポリシーが追加される   -->
   →AWSGlueServiceRole-default  

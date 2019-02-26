@@ -2,7 +2,7 @@
 
 ## 概要
 AWS Lambdaを使用して列車情報、気象情報をオープンデータAPIより取得し、DynamoDBへデータを格納します。  
-格納されたデータに対して、AWS Glueを使用してDynamoDBテーブルをクロールし、Amazon S3にデータを抽出し、Amazon AthenaでSQLクエリを使用して分析を実行する体験をします。  
+格納されたデータに対して、AWS Glueを使用してDynamoDBテーブルをクロール後、Amazon S3にデータを抽出し、Amazon AthenaでSQLクエリを使用して分析を実行する体験をします。  
 
 ## 大まかな流れ
 事前準備  

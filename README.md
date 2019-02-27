@@ -85,9 +85,9 @@ https://github.com/mimopa/otenki_scraping_to_dynamodb.git
 ※参考
 https://aws.amazon.com/jp/blogs/news/simplify-amazon-dynamodb-data-extraction-and-analysis-by-using-aws-glue-and-amazon-athena/
 * 列車情報  
-* データカタログ、データ格納用のS3バケットを作成  
-  バケット名：publictransportdata/train  
-  アクセス権限：パブリック  
+* データカタログ、データ格納用のS3バケットにフォルダを作成  
+  バケット名：publictransportdata  
+  フォルダ名：train  
 * DynamoDBからスキーマを検出し、AWS Glue Data Catalogにメタデータを設定するクローラを作成  
   クローラー名：traindata_for_dynamodb  
   データストア：DnynamoDB  
@@ -118,9 +118,9 @@ https://aws.amazon.com/jp/blogs/news/simplify-amazon-dynamodb-data-extraction-an
   出力を設定では、データベースを追加  
   データベース：traindata_for_S3  
 * ＜気象情報＞  
-* データカタログ、データ格納用のS3バケットを作成  
-  バケット名：publictransportdata/weather  
-  アクセス権限：パブリック  
+* データカタログ、データ格納用のS3バケットにフォルダを作成  
+  バケット名：publictransportdata  
+  フォルダ名：weather  
 * DynamoDBからスキーマを検出し、AWS Glue Data Catalogにメタデータを設定するクローラを作成  
   クローラー名：weatherdata_for_dynamodb  
   データストア：DnynamoDB  
